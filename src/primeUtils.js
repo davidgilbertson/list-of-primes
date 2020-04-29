@@ -3,7 +3,6 @@ import { makeWheel } from './makeWheel';
 // Make a wheel, bigger is faster to process, but slower to create on page load
 // 6 or 7 work well
 const wheelData = makeWheel(6);
-console.log(wheelData);
 
 let candidate = wheelData.startCandidate;
 

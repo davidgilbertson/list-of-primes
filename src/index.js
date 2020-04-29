@@ -8,7 +8,7 @@ reset(); // CodeSandbox executes this file multiple times
 
 const primesEl = document.getElementById('primes');
 const msgEl = document.getElementById('msg');
-const skipButtonEl = document.getElementById('skip');
+const jumpButtonEl = document.getElementById('jump');
 const commasButtonEl = document.getElementById('commas');
 const saveButtonEl = document.getElementById('save');
 
@@ -104,7 +104,7 @@ const skipAheadByX = (skip = 1000000) => {
   fillScreenWithPrimes();
 };
 
-skipButtonEl.addEventListener('click', () => {
+jumpButtonEl.addEventListener('click', () => {
   skipAheadByX(1000000);
 });
 
@@ -179,3 +179,5 @@ window.startGettingPrimes = (count = 1000, limit = Infinity) => {
 
   return timer;
 };
+
+console.log('Source: https://github.com/davidgilbertson/list-of-primes');

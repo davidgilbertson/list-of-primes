@@ -1,5 +1,4 @@
 export const makeWheel = (primeCount) => {
-  console.time(`Making wheel of ${primeCount} primes`);
   const primes = [2];
 
   const isPrime = (candidate) => {
@@ -50,7 +49,6 @@ export const makeWheel = (primeCount) => {
     steps[lastNonFactor]++;
   }
 
-  console.timeEnd(`Making wheel of ${primeCount} primes`);
   return {
     startCandidate: primes[primes.length - 1],
     primes,
