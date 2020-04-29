@@ -4,7 +4,7 @@
   "description": "A website with a list of primes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watch",
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html"
   },
@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/davidgilbertson/list-of-primes#readme",
   "devDependencies": {
+    "@types/jest": "^25.2.1",
+    "jest": "^25.5.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^2.0.5"
   }

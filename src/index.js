@@ -162,7 +162,7 @@ window.startGettingPrimes = (count = 1000, limit = Infinity) => {
     while (true) {
       if (getAndStorePrime() > stopAt) break;
     }
-    
+
     console.log(
       `Searched ${count.toLocaleString()} in`,
       Math.round(performance.now() - start)
