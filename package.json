@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --watch",
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "deploy": "firebase deploy"
   },
   "repository": {
     "type": "git",
