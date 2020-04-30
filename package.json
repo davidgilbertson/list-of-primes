@@ -7,7 +7,7 @@
     "test": "jest --watch",
     "start": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "deploy": "firebase deploy"
+    "deploy": "npm run build && firebase deploy"
   },
   "repository": {
     "type": "git",
