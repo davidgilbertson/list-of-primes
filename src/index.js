@@ -2,13 +2,13 @@
  * This module maintains the interface.
  * All prime-generating logic is in primeUtils.js
  */
-import { getNextPrime, reset, getStartPrimes } from './primeUtils';
+import { getNextPrime, getStartPrimes, reset } from './primeUtils';
 
 reset(); // CodeSandbox executes this file multiple times
 
 const primesEl = document.getElementById('primes');
 const msgEl = document.getElementById('msg');
-const jumpButtonEl = document.getElementById('jump');
+const fastForwardButtonEl = document.getElementById('fastForward');
 const commasButtonEl = document.getElementById('commas');
 const saveButtonEl = document.getElementById('save');
 
@@ -16,6 +16,8 @@ const BATCH_MS = 3; // Leave plenty of time for re-rendering to stay at 60 FPS
 let showCommas = !!(
   window.localStorage && localStorage.showCommas === String(true)
 );
+
+let fastForwarding = false;
 const appendPrime = (el, prime) => {
   const p = document.createElement('p');
   p.textContent = showCommas ? prime.toLocaleString() : prime;
@@ -104,20 +106,14 @@ const skipAheadByX = (skip = 1000000) => {
   fillScreenWithPrimes();
 };
 
-jumpButtonEl.addEventListener('click', () => {
-  skipAheadByX(1000000);
-});
-
 commasButtonEl.addEventListener('click', () => {
   showCommas = !showCommas;
   localStorage.showCommas = String(showCommas);
 
   Array.from(document.querySelectorAll('#primes p')).forEach((el) => {
-    const newText = showCommas
+    el.textContent = showCommas
       ? Number(el.textContent).toLocaleString()
       : el.textContent.replace(/,/g, '');
-
-    el.textContent = newText;
   });
 });
 
@@ -133,6 +129,44 @@ saveButtonEl.addEventListener('click', () => {
   a.href = URL.createObjectURL(blob);
   a.download = getFileName();
   a.click();
+});
+
+fastForwardButtonEl.addEventListener('click', () => {
+  if (!fastForwarding) {
+    fastForwarding = true;
+    fastForwardButtonEl.textContent = 'Stop';
+
+    const addPrime = () => {
+      if (!fastForwarding) return;
+      primesEl.innerHTML = '';
+
+      const start = performance.now();
+
+      let count = 0;
+      while (true) {
+        // This extra check cuts down on performance.now() reads
+        if (count++ > 100) {
+          // We've been going for a while, break
+          if (performance.now() - start >= 30) {
+            break;
+          }
+          count = 0;
+        }
+        getAndStorePrime();
+      }
+
+      appendPrime(primesEl, getAndStorePrime());
+
+      requestAnimationFrame(addPrime);
+    };
+
+    addPrime();
+  } else {
+    fastForwarding = false;
+    fastForwardButtonEl.textContent = 'Fast forward';
+
+    fillScreenWithPrimes();
+  }
 });
 
 /*  -------------------------  */

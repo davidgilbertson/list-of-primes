@@ -70,3 +70,7 @@ p {
   font-weight: 300;
   margin: 40px 0 40px;
 }
+
+#fastForward {
+  width: 100px;
+}
